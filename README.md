@@ -1,7 +1,7 @@
 # empty-container
 The smallest possible docker container.
 
-This was done to store configs in a container mounted via volumes into another container to help with version-controlled configs. A process *has* to run in a container, this satisfies that in the most minimal way ... the running process only consumes about 1k, but the container itself will use a few KB of memory.
+This was done to store configs in a container mounted via volumes into another container to help with version-control. A process *has* to run in a container, this satisfies that in the most minimal way ... the running process only consumes about 1k, but the container itself will use a few KB of memory.
 
  - add files into ./share/
  - build
