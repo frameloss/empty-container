@@ -1,5 +1,5 @@
 # empty-container
-The smallest possible docker container.
+The smallest possible docker container, before adding files filesystem is only about 345 bytes (yes, bytes.)
 
 This was done to store configs in a container mounted via volumes into another container to help with version-control. A process *has* to run in a container, this satisfies that in the most minimal way ... the running process only consumes about 1k, but the container itself will use a few KB of memory.
 
@@ -16,6 +16,9 @@ Nothing much to it, uses a single syscall (pause) written in assembly. No memory
 
 Running
 ======
+
+From source:
+
 ```
 git clone https://github.com/frameloss/empty-container
 cd empty-container
@@ -24,5 +27,26 @@ docker build -t frameloss/empty-container .
 docker run -d --net=none --restart=always --name=storage frameloss/emtpy-container
 ```
 
-The use the `--volumes-from` flag to connect it to another container.
+From dockerhub:
+
+```
+docker pull frameloss/empty-container
+docker run --net=none --restart=always --name=storage -d frameloss/empty-container
+```
+
+Use the `--volumes-from=storage` flag to connect it to another container. 
+
+For example:
+
+```
+# docker pull frameloss/empty-container
+# docker run --net=none --restart=always --name=storage -d frameloss/empty-container
+# docker run -ti --rm --volumes-from=storage debian bash
+root@8c63ca822900:/# cd /share
+root@8c63ca822900:/share# ls -a
+.  ..  .emtpy
+root@8c63ca822900:/share# exit
+exit
+#
+```
 
