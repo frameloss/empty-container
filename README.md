@@ -44,7 +44,7 @@ For example:
 # docker run -ti --rm --volumes-from=storage debian bash
 root@8c63ca822900:/# cd /share
 root@8c63ca822900:/share# ls -a
-.  ..  .emtpy
+.  ..  .empty
 root@8c63ca822900:/share# exit
 exit
 #
