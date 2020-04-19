@@ -22,6 +22,11 @@ From source:
 ```
 git clone https://github.com/frameloss/empty-container
 cd empty-container
+
+sudo dnf install nasm
+nasm -f elf64 pause.asm
+ld -s -o pause pause.o
+
 # cp whatever share/
 docker build -t frameloss/empty-container .
 docker run -d --net=none --restart=always --name=storage frameloss/emtpy-container
@@ -34,7 +39,7 @@ docker pull frameloss/empty-container
 docker run --net=none --restart=always --name=storage -d frameloss/empty-container
 ```
 
-Use the `--volumes-from=storage` flag to connect it to another container. 
+Use the `--volumes-from=storage` flag to connect it to another container.
 
 For example:
 
@@ -49,4 +54,3 @@ root@8c63ca822900:/share# exit
 exit
 #
 ```
-
