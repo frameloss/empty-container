@@ -1,7 +1,8 @@
 # empty-container
 The smallest possible docker container, before adding files filesystem is only about 345 bytes (yes, bytes.)
 
-This was done to store configs in a container mounted via volumes into another container to help with version-control. A process *has* to run in a container, this satisfies that in the most minimal way ... the running process only consumes about 1k, but the container itself will use a few KB of memory.
+Update April 2020: This was _originally_ done to store configs in a container mounted via volumes into another container to help with version-control, when a process had to be running in a container. I think it was originally written around 2014 while Docker was still very young. Since then Docker has added the ability to create shared volumes https://docs.docker.com/storage/volumes/ and a bunch of other storage options, so I'm not sure if this is still relevant but leaving for historical purposes. It may still be useful for cases where something needs to be running for switching namespaces (for example having a static compiled binary nsenter the container's filesystem from the host).
+
 
  - add files into ./share/
  - build
@@ -14,8 +15,7 @@ Nothing much to it, uses a single syscall (pause) written in assembly. No memory
         syscall
 ```
 
-Running
-======
+## Running
 
 From source:
 
@@ -27,12 +27,6 @@ docker build -t empty-container .
 docker run -d --net=none --restart=always --name=storage emtpy-container
 ```
 
-From dockerhub:
-
-```
-docker pull frameloss/empty-container
-docker run --net=none --restart=always --name=storage -d frameloss/empty-container
-```
 
 Use the `--volumes-from=storage` flag to connect it to another container.
 
